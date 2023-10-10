@@ -16,16 +16,26 @@ Currently, 15000 requests are generated for each multi-agent scenario. Each requ
 1.index 
 
 2.ts_dep 
+
 3.start_date_dep 
+
 4.num_of_weeks 
-5.date_seq_dep
-6.origin_airport 
-7.destination_airport
+
+5.date_seq_dep e.g. [28, 35, 42, 49, 56, 63, 70, 77, 84, 91, 98, 105, 112, 119, 126, 133, 140, 147, 154, 161, 168]
+
+6.origin_airport e.g. [0.0, 1.0, 0.0]
+
+7.destination_airport e.g. [0.0, 0.0, 1.0]
+
 8.fly_time
+
 9.Status_cap_dep
+
 10.ts_arv
+
 11.start_date_arv
+
 12.date_seq_arv
+
 13.status_cap_arv
 
-![image](https://github.com/lyejy/agent-aeronauts-MARL/assets/80668328/07381065-1fa0-40a7-96f5-a2f1e4e5a222)
