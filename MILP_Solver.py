@@ -1,79 +1,142 @@
-import pulp
+from pulp import LpProblem, LpVariable, lpSum, LpMaximize, LpMinimize
+from scipy.stats import truncnorm
+import numpy as np
 import random
 
+def get_truncated_normal(mean, sd, low, upp):
+    return truncnorm((low - mean) / sd, (upp - mean) / sd, loc=mean, scale=sd)
 
-# Parameters
-num_requests = 15000
-num_timeslots_per_day = 288
-num_days = 182 
-total_timeslots = num_requests * num_timeslots_per_day
-capacity = 10  # Fixed capacity for each timeslot
-movements = 5  # Maximum allowed distance from the original timeslot
+def one_hot_encode_airport(airport, num_airports):
+    encoding = np.zeros(num_airports)
+    encoding[airport] = 1
+    return encoding
+
+def generate_info_arv(requests):
+    ts_arv = np.empty(shape=(len(requests),), dtype='object')
+    start_date_arv = np.empty(shape=(len(requests),), dtype='object')
+    for i in range(len(requests)):
+        ts_arv[i] = requests[i][1] + requests[i][5]/5
+        if ts_arv[i] > 287:
+            ts_arv[i] = ts_arv[i] - 287
+            start_date_arv[i] = requests[i][2] + 1
+        else:
+            start_date_arv[i] = requests[i][2]
+    return ts_arv, start_date_arv
+
+def get_ts_per_year(ts_slots, dates):
+    result = np.empty(shape=(len(ts_slots),), dtype='object')
+    for i in range(len(ts_slots)):
+        result[i] = dates[i] * 287 + ts_slots[i]
+    return result 
+
+#Modify the distribution based on historical data later:
+def generate_scenario(number_of_requests, num_airports):
+    
+    #number_of_requests = 15000
+    ts_72 = get_truncated_normal(mean=72, sd=12, low=0, upp=287).rvs(int(round(number_of_requests/2)))
+    ts_72 = np.round(ts_72)
+
+    ts_216 = get_truncated_normal(mean=216, sd=12, low=0, upp=287).rvs(int(round(number_of_requests/2)))
+    ts_216 = np.round(ts_216)
+
+    ts_dep = np.concatenate((ts_72, ts_216))
+    ts_dep = ts_dep.astype(int)
+
+    #Generate departure dates:
+    start_date_dep = np.random.randint(low = 0, high=146, size=number_of_requests) #146 because period is 182 days and we consider series which span at least 5 weeks (+35 days)
+
+    #Generate index for requests:
+    index = np.array(list(range(number_of_requests)))
+
+    origin_airport = np.empty(shape=(number_of_requests,), dtype='object')
+    destination_airport = np.empty(shape=(number_of_requests,), dtype='object')
+    for i in range(number_of_requests):
+        #Generate origin (0 and 1 are two considered origin airports, 2 represent other airports, encoded in one-hot vector):
+        _org_airport = one_hot_encode_airport(random.randint(0,1), num_airports)
+        _org_airport_list = _org_airport.tolist()
+        origin_airport[i] = _org_airport_list
+        #Generate destination (the destination will be different with the origin):
+        _dest_airport = _org_airport.copy()
+        while np.array_equal(_dest_airport, _org_airport):
+            np.random.shuffle(_dest_airport)
+        _dest_airport_list = _dest_airport.tolist()
+        destination_airport[i] = _dest_airport_list
+
+    #Generate flying time (assume between airport 0 and 1 is 2 hour, 0 to 2 and 1 to 2 is arbitrary):
+    fly_time = np.empty(shape=(number_of_requests,), dtype='object')
+    for i in range (number_of_requests):
+        if origin_airport[i] == list([1.0, 0.0]) and destination_airport[i] == list([0.0, 1.0]):
+            fly_time[i] = 120
+        elif origin_airport[i] == list([0.0, 1.0]) and destination_airport[i] == list([1.0, 0.0]):
+            fly_time[i] = random.choice([60, 120, 180])
+        else:
+            fly_time[i] = random.choice([60, 120, 180])
+  
+    requests = np.stack((index, ts_dep, start_date_dep, origin_airport, destination_airport, fly_time), axis=1)
+
+    #Generate full info for the arv side:
+    ts_arv, start_date_arv = generate_info_arv(requests)
+
+    # Define requests_full as dtype object
+    # requests_full = np.stack((index, ts_dep, start_date_dep, num_of_weeks, date_seq_dep, origin_airport, destination_airport, fly_time, status_cap_dep, ts_arv, start_date_arv, date_seq_arv, status_cap_arv), axis=1)
+    num_entries = len(index)  # Given that 'index' is defined using np.array(list(range(number_of_requests)))
+    # Create an empty array of the desired shape with dtype=object
+    requests_full = np.empty((num_entries, 10), dtype=object)
+    # Fill the array
+    ts_dep = get_ts_per_year(ts_dep, start_date_dep)
+    ts_arv = get_ts_per_year(ts_arv, start_date_arv)
+
+    data = [index, ts_dep, origin_airport, ts_arv, destination_airport]
+    for i, column_data in enumerate(data):
+        requests_full[:, i] = column_data
+
+    return requests_full
 
 
-# Constants for original arrival and departure slots
-original_arrival = {i: random.randint(0, total_timeslots - 1) for i in range(num_requests)}
-original_departure = {i: (original_arrival[i] + 7) % total_timeslots for i in range(num_requests)}
 
+num_airports = 3
+number_of_requests = 100
+flight_requests = generate_scenario(number_of_requests, num_airports)
+time_slots = 287 * 182 # Time slots and their characteristics
+max_change = 5 
+time_slot_cap = 1
+ 
+# Create a MILP problem
+model = LpProblem(name="Flight_Scheduling", sense=LpMinimize)
 
-# Create a PuLP problem
-problem = pulp.LpProblem("FlightAssignment", pulp.LpMinimize)
+# Create binary decision variables for each flight request and each possible change in time slots
+x = {(req, slot_change): LpVariable(name=f"x_{req}_{slot_change}", cat="Binary")
+     for req in range(number_of_requests) for slot_change in range(-max_change//2, max_change//2)}
 
-# Binary decision variables: 
-# arrival[i, j] is 1 if request i arrives at timeslot j
-# departure[i, j] is 1 if request i departs from timeslot j
-arrival = pulp.LpVariable.dicts("Arrival", ((i, j) for i in range(num_requests) for j in range(total_timeslots)), cat=pulp.LpBinary)
-departure = pulp.LpVariable.dicts("Departure", ((i, j) for i in range(num_requests) for j in range(total_timeslots)), cat=pulp.LpBinary)
+# Objective function: minimize the number of slot changes
+model += lpSum(x[req, slot_change] for req in range(number_of_requests) for slot_change in range(-max_change//2, max_change//2))
 
 # Constraints
-# Each request arrives at exactly one timeslot
-for i in range(num_requests):
-    problem += pulp.lpSum(arrival[i, j] for j in range(total_timeslots)) == 1
+for airport in range(num_airports):
+    for slot in range(time_slots):
+        # Demand for each time slot at each airport should be less than the capacity
+        model += lpSum(x[req, slot_change] for req in range(number_of_requests)
+                       for slot_change in range(-max_change//2, max_change//2)
+                       if (flight_requests[req][2] == airport and flight_requests[req][1] + slot_change == slot)
+                       or (flight_requests[req][4] == airport and flight_requests[req][3] + slot_change == slot)) <= time_slot_cap
+      
+        
+for req in range(number_of_requests):
+    model += lpSum(x[req,slot_change] for slot_change in range(-max_change//2, max_change//2)) == 1
 
-# Each request departs from exactly one timeslot
-for i in range(num_requests):
-    problem += pulp.lpSum(departure[i, j] for j in range(total_timeslots)) == 1
+# Solve the MILP problem
+model.solve()
 
-# Capacity constraint for each timeslot
-for j in range(total_timeslots):
-    problem += pulp.lpSum(arrival[i, j] for i in range(num_requests)) + pulp.lpSum(departure[i, j] for i in range(num_requests)) <= capacity
+slot_changes = []
 
-# Ensure that the departure and arrival timeslots for a flight request are not the same 
-for i in range(num_requests):
-    for j in range(total_timeslots):
-        problem += arrival[i, j] + departure[i, j] <= 1  # A request can't arrive and depart from the same timeslot
+# Iterate through the decision variables and check if they are equal to 1
+for req in range(number_of_requests):
+    for slot_change in range(-max_change//2, max_change//2):
+        if x[req, slot_change].varValue == 1:
+            slot_changes.append((req, slot_change))
 
-# Ensure that the updated slot is at most a certain number of slots away  
-for i in range(num_requests):
-    for j in range(total_timeslots):
-        problem += arrival[i, j] * abs(original_arrival[i] - j) <= movements//2 
+# Print the slot changes
+for req, slot_change in slot_changes:
+    print(f"Flight Request {req}: Change by {slot_change} time slots from dep slot {flight_requests[req][1]} and arv slot {flight_requests[req][3]}")
 
-for i in range(num_requests):
-    for j in range(total_timeslots):
-        problem += departure[i, j] * abs(original_departure[i] - j) <= movements//2 
-
-
-#Minimize the number of timeslots between the original timeslot and the updated timeslot 
-problem += pulp.lpSum(
-    arrival[i, j] * abs(original_arrival[i] - j) + departure[i, j] * abs(original_departure[i] - j)
-    for i in range(num_requests)
-    for j in range(total_timeslots)
-)
-
-
-# Solve the problem
-problem.solve()
-
-if problem.status == pulp.LpStatusOptimal:
-    # Print the optimal assignments
-    for i in range(num_requests):
-        arrival_slot = next(j for j in range(total_timeslots) if pulp.value(arrival[i, j]) == 1)
-        departure_slot = next(j for j in range(total_timeslots) if pulp.value(departure[i, j]) == 1)
-        print(f"Request {i} arrives at timeslot {arrival_slot} and departs from timeslot {departure_slot}")
-
-    # Print the total distance
-    total_distance = sum(abs(arrival_slot - departure_slot) for i in range(num_requests))
-    print(f"Total distance: {total_distance}")
-else:
-    # Print number of remaining requests violating constraints 
-    print("No optimal solution found.")
+print("Objective Value:", model.objective.value())
