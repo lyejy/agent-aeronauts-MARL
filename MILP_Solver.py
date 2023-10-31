@@ -1,4 +1,4 @@
-from pulp import LpProblem, LpVariable, lpSum, LpMaximize, LpMinimize
+from pulp import *
 from scipy.stats import truncnorm
 import numpy as np
 import random
@@ -96,6 +96,7 @@ for req in range(number_of_requests):
 for slot in range(time_slots):
     problem += lpSum(x[req, slot] for req in range(number_of_requests)) <= capacity_per_slot
 
+# optimal solution found for number_of_requests = 700, max_movements = 12
 # checks that the change in slot for each request < max_movements 
 # for req in range(number_of_requests): 
 #     problem += lpSum(x[req, slot] * abs(slot - flight_requests[req][1]) for slot in range(time_slots)) <= max_movements 
@@ -122,7 +123,7 @@ for req in range(number_of_requests):
 for req, slot in updated_slots:
     print(f"Flight Request {req}: Change from dep slot {flight_requests[req][1]} to {slot}")
 
-
+print("Status:", LpStatus[problem.status])
 print(f"{number_unchanged} flight requests out of {number_of_requests} were not shifted.")
 print("Maximum Shift:", max_change)
 print("Objective Value:", problem.objective.value())
