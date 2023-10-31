@@ -87,6 +87,15 @@ problem += lpSum(x[req, slot] * abs(slot - flight_requests[req][1]) for req in r
 # for req in range(number_of_requests):
 #     problem += lpSum(x[req, slot] * abs(slot - flight_requests[req][1]) for slot in range(time_slots))
 
+# Objective function - minimises the maximum absolute difference between the requested and allocated time interval for each request
+m = pulp.LpVariable("m", lowBound=0)
+# problem += pulp.lpSum([m])
+for req in range(number_of_requests):
+    for slot in range(time_slots):
+        if (x[req, slot] == 1):
+            problem += pulp.lpSum([m]) >= abs(slot - flight_requests[req][1])
+problem += pulp.lpSum([m]) <= 253 # value obtain when m is set as objective
+
 # Constraints - 
 # checks if a movement is allocated to only 1 timeslot
 for req in range(number_of_requests):
