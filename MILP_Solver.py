@@ -105,12 +105,15 @@ problem.solve()
 
 updated_slots = []
 max_change = float('-inf')
+number_unchanged = 0 
 
 # Iterate through the decision variables and check if they are equal to 1
 for req in range(number_of_requests):
     for slot in range(time_slots):
         if x[req, slot].varValue == 1:
             change = abs(flight_requests[req][1] - slot)
+            if not change:
+                number_unchanged += 1
             if change > max_change:
                 max_change = change 
             updated_slots.append((req, slot))
@@ -119,5 +122,7 @@ for req in range(number_of_requests):
 for req, slot in updated_slots:
     print(f"Flight Request {req}: Change from dep slot {flight_requests[req][1]} to {slot}")
 
+
+print(f"{number_unchanged} flight requests out of {number_of_requests} were not shifted.")
 print("Maximum Shift:", max_change)
 print("Objective Value:", problem.objective.value())
