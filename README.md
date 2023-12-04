@@ -1,5 +1,11 @@
-# agent-aeronauts-MARL
+# Project Description 
 This repository contains the code and resources for Agent Aeronauts' CS480 Final Year Project:  Multi-Agent Reinforcement Learning for Strategic Network-Level Airport Slot Scheduling
+
+## Objective 
+
+## Methodology Overview 
+
+## Research Findings 
 
 ## Team: Agent Aeronauts
 - LYE Jian Yi
@@ -9,12 +15,18 @@ This repository contains the code and resources for Agent Aeronauts' CS480 Final
 - Sarah HOGAN
 - TEOW Khai Soon
 
-# Directory 
+# Code  
+
+## Usage Guidelines 
+
+## Data Sources/Requirements 
+
+## Directory 
 
 ### Data Preprocessing & EDA
-- [Airport distribution.ipynb](Data Preprocessing & EDA/Airport distribution.ipynb)
-- [Movement graphs.ipynb](Data Preprocessing & EDA/Movement graphs.ipynb)
-- [Request_data.ipynb](Data Preprocessing & EDA/Request_data.ipynb)
+- [Airport distribution.ipynb](Data-Preprocessing-&-EDA/Airport-distribution.ipynb)
+- [Movement graphs.ipynb](Data-Preprocessing-&-EDA/Movement-graphs.ipynb)
+- [Request_data.ipynb](Data-Preprocessing-&-EDA/Request_data.ipynb)
 
 ### MARL
 - **Experiment 1: Different Observation Space**
