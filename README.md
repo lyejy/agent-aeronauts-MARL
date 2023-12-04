@@ -9,33 +9,46 @@ This repository contains the code and resources for Agent Aeronauts' CS480 Final
 - Sarah HOGAN
 - TEOW Khai Soon
 
-## Code 
+# Directory 
 
-Currently, 15000 requests are generated for each multi-agent scenario. Each request is an array containing the following information at the respective indexes:
+### Data Preprocessing & EDA
+- [Airport distribution.ipynb](Data Preprocessing & EDA/Airport distribution.ipynb)
+- [Movement graphs.ipynb](Data Preprocessing & EDA/Movement graphs.ipynb)
+- [Request_data.ipynb](Data Preprocessing & EDA/Request_data.ipynb)
 
-1.index 
+### MARL
+- **Experiment 1: Different Observation Space**
+    - [DQN_7days.ipynb](MARL/Experiment-1-diff-obs-space/DQN_7days.ipynb)
+    - [Multi-Airport_SchedEnv_SMU.ipynb](MARL/Experiment-1-diff-obs-space/Multi-Airport_SchedEnv_SMU.ipynb)
+    - [sim2_1day.ipynb](MARL/Experiment-1-diff-obs-space/sim2_1day.ipynb)
 
-2.ts_dep 
+- **Experiment 2: Multi-Agent Different Reward Design**
+    - [sim2_1day_test.ipynb](MARL/Experiment-2-multi-agent-diff-reward-design/sim2_1day_test.ipynb)
 
-3.start_date_dep 
+- **Experiment 3: Central Agent**
+    - [sim2_1day_central_agent.ipynb](MARL/Experiment-3-central-agent/sim2_1day_central_agent.ipynb)
+    - [test_sim2_1day_central_agent.ipynb](MARL/Experiment-3-central-agent/test_sim2_1day_central_agent.ipynb)
 
-4.num_of_weeks 
+- **Experiment 4: Central Agent Setting Modifications**
+    - [central-agent-no-solve-36sd.ipynb](MARL/Experiment-4-central-agent-setting-mods/central-agent-no-solve-36sd.ipynb)
+    - [central-agent-no-solve-60sd.ipynb](MARL/Experiment-4-central-agent-setting-mods/central-agent-no-solve-60sd.ipynb)
+    - [central-agent-sd36-2x4k-new-reward.ipynb](MARL/Experiment-4-central-agent-setting-mods/central-agent-sd36-2x4k-new-reward.ipynb)
+    - [central-agent-sd60-2x1.5k-new-reward.ipynb](MARL/Experiment-4-central-agent-setting-mods/central-agent-sd60-2x1.5k-new-reward.ipynb)
 
-5.date_seq_dep e.g. [28, 35, 42, 49, 56, 63, 70, 77, 84, 91, 98, 105, 112, 119, 126, 133, 140, 147, 154, 161, 168]
+- **Experiment 5: Central Agent Stable Baselines**
+    - **Setting 1**
+        - [central_agent-stable-baselines-setting1.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-1/central_agent-stable-baselines-setting1.ipynb)
+    - **Setting 2**
+        - [central_agent-stable-baselines-setting2.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-2/central_agent-stable-baselines-setting2.ipynb)
+    - **Setting 3**
+        - [central_agent-stable-baselines-setting3.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-3/central_agent-stable-baselines-setting3.ipynb)
+    - **Setting 4**
+        - [central_agent-stable-baselines-setting4.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-4/central_agent-stable-baselines-setting4.ipynb)
 
-6.origin_airport e.g. [0.0, 1.0, 0.0]
+### MILP
+- [MILP_MAS.ipynb](MILP/MILP_MAS.ipynb)
+- [MILP_MAS_real_data.ipynb](MILP/MILP_MAS_real_data.ipynb)
+- [MILP.ipynb](MILP/MILP.ipynb)
+- [MILP_real_data.ipynb](MILP/MILP_real_data.ipynb)
 
-7.destination_airport e.g. [0.0, 0.0, 1.0]
-
-8.fly_time
-
-9.Status_cap_dep
-
-10.ts_arv
-
-11.start_date_arv
-
-12.date_seq_arv
-
-13.status_cap_arv
 
