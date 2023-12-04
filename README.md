@@ -1,7 +1,11 @@
 # Project Description 
 This repository contains the code and resources for Agent Aeronauts' CS480 Final Year Project:  Multi-Agent Reinforcement Learning for Strategic Network-Level Airport Slot Scheduling
 
-## Objective 
+## Problem 
+Increasing demands of air traffic coupled with the limitation of airport infrastructure has led to fight delays, eventually causing substantial financial losses for airlines and contributing to adverse environmental impacts. A supply-side approach is not feasible in the short-term and is capital-intensive as well as limited by available space constraints. Conversely, a demand-side approach which would involve strategically scheduling slots within the existing capacity could be implemented in a relatively shorter timeframe and is a more sustainable solution. 
+
+## Solution 
+Using reinforcement learning to carry out network-level slot scheduling 
 
 ## Methodology Overview 
 
@@ -18,6 +22,8 @@ This repository contains the code and resources for Agent Aeronauts' CS480 Final
 # Code  
 
 ## Usage Guidelines 
+
+We opted for using Jupyter Notebook (.ipynb) files exclusively over traditional Python (.py) files to leverage GPU resources efficiently. This approach allowed us to run a single file for each iteration, harnessing the power of GPU acceleration and facilitating seamless experimentation and iteration within a notebook environment.
 
 ## Data Sources/Requirements 
 
