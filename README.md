@@ -1,18 +1,30 @@
 # Project Description 
 This repository contains the code and resources for Agent Aeronauts' CS480 Final Year Project:  Multi-Agent Reinforcement Learning for Strategic Network-Level Airport Slot Scheduling
 
+## Team: Agent Aeronauts
+- LYE Jian Yi
+- Naomi OH
+- Padme MAGTALAS
+- Regina CHUA
+- Sarah HOGAN
+- TEOW Khai Soon
+
 ## Problem 
 Increasing demands of air traffic coupled with the limitation of airport infrastructure has led to fight delays, eventually causing substantial financial losses for airlines and contributing to adverse environmental impacts. A supply-side approach is not feasible in the short-term and is capital-intensive as well as limited by available space constraints. Conversely, a demand-side approach which would involve strategically scheduling slots within the existing capacity could be implemented in a relatively shorter timeframe and is a more sustainable solution. 
 
 ## Solution 
-The end goal is to develop a reinforcement learning model to carry out network-level slot scheduling. The solution includes the following components:
+The end goal is to develop a reinforcement learning model that is able to optimally carry out network-level slot scheduling. The solution includes the following components:
 
 1. A simulator to emulate the complexities of the multi-airport slot scheduling problem and serve as the learning environment for the agent/agents. 
 2. Benchmark algorithms - MILP and MDP - to provide a reference point to assess the performance of the RL model in addressing the collaborative airport scheduling problem  
 
 ## Methodology Overview 
 
-<img width="940" alt="Screenshot 2023-12-05 at 10 25 29 AM" src="https://github.com/lyejy/agent-aeronauts-MARL/assets/80668328/f163235e-88ec-4742-821f-8f2234b70e32">
+<p align="center">
+  <img width="940" alt="Screenshot 2023-12-05 at 10 25 29 AM" src="https://github.com/lyejy/agent-aeronauts-MARL/assets/80668328/f163235e-88ec-4742-821f-8f2234b70e32">
+</p><p align="center">
+  Figure 1: Concept Diagram of MARL to carry out Network-Level Slot Allocation
+</p>
 
 1. For the purpose of simulations, scenarios are generated with reference to the data distribution of historical real-world data obtained during the initial phase of study hence, the scenarios can emulate the high slot demands and limited airport capacities.
 2. At the start of the scenario, each airport has already independently allocated flight requests to slots but coherency of these individual slot schedules at a wider network scale cannot be guaranteed. 
@@ -21,14 +33,6 @@ The end goal is to develop a reinforcement learning model to carry out network-l
 5. The model’s performance is then evaluated against the performance of benchmark algorithms such as Multi-Integer Linear Programming (MILP) and MDP methodologies. 
 
 ## Research Findings 
-
-## Team: Agent Aeronauts
-- LYE Jian Yi
-- Naomi OH
-- Padme MAGTALAS
-- Regina CHUA
-- Sarah HOGAN
-- TEOW Khai Soon
 
 # Code  
 
