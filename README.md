@@ -38,6 +38,8 @@ The end goal is to develop a reinforcement learning model that is able to optima
 
 ## Usage Guidelines 
 
+Depending on which combination of parameters you want to test for the simulator, please choose the Jupyter Notebook file accordingly and run using either Google Colab or a GPU cluster where available. 
+
 We opted for using Jupyter Notebook (.ipynb) files exclusively over traditional Python (.py) files to leverage GPU resources efficiently. This approach allowed us to run a single file for each iteration, harnessing the power of GPU acceleration and facilitating seamless experimentation and iteration within a notebook environment.
 
 ## Data Sources/Requirements 
