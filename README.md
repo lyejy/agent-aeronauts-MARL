@@ -45,8 +45,8 @@ We opted for using Jupyter Notebook (.ipynb) files exclusively over traditional 
 ## Directory 
 
 ### Data Preprocessing & EDA
-- [Airport distribution.ipynb](Data-Preprocessing-&-EDA/Airport-distribution.ipynb)
-- [Movement graphs.ipynb](Data-Preprocessing-&-EDA/Movement-graphs.ipynb)
+- [Airport distribution.ipynb](Data-Preprocessing-&-EDA/Airport_distribution.ipynb)
+- [Movement graphs.ipynb](Data-Preprocessing-&-EDA/Movement_graphs.ipynb)
 - [Request_data.ipynb](Data-Preprocessing-&-EDA/Request_data.ipynb)
 
 ### MARL
@@ -63,20 +63,20 @@ We opted for using Jupyter Notebook (.ipynb) files exclusively over traditional 
     - [test_sim2_1day_central_agent.ipynb](MARL/Experiment-3-central-agent/test_sim2_1day_central_agent.ipynb)
 
 - **Experiment 4: Central Agent Setting Modifications**
-    - [central-agent-no-solve-36sd.ipynb](MARL/Experiment-4-central-agent-setting-mods/central-agent-no-solve-36sd.ipynb)
-    - [central-agent-no-solve-60sd.ipynb](MARL/Experiment-4-central-agent-setting-mods/central-agent-no-solve-60sd.ipynb)
-    - [central-agent-sd36-2x4k-new-reward.ipynb](MARL/Experiment-4-central-agent-setting-mods/central-agent-sd36-2x4k-new-reward.ipynb)
-    - [central-agent-sd60-2x1.5k-new-reward.ipynb](MARL/Experiment-4-central-agent-setting-mods/central-agent-sd60-2x1.5k-new-reward.ipynb)
+    - [central-agent-no-solve-36sd.ipynb](MARL/Experiment-4-central-agent-setting-mods/central_agent_no_solve_36sd.ipynb)
+    - [central-agent-no-solve-60sd.ipynb](MARL/Experiment-4-central-agent-setting-mods/central_agent_no_solve_60sd.ipynb)
+    - [central-agent-sd36-2x4k-new-reward.ipynb](MARL/Experiment-4-central-agent-setting-mods/central_agent_sd36_2x4k_new_reward.ipynb)
+    - [central-agent-sd60-2x1.5k-new-reward.ipynb](MARL/Experiment-4-central-agent-setting-mods/central_agent_sd60_2x1.5k_new_reward.ipynb)
 
 - **Experiment 5: Central Agent Stable Baselines**
     - **Setting 1**
-        - [central_agent-stable-baselines-setting1.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-1/central_agent-stable-baselines-setting1.ipynb)
+        - [central_agent-stable-baselines-setting1.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-1/central_agent_stable_baselines_setting1.ipynb)
     - **Setting 2**
-        - [central_agent-stable-baselines-setting2.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-2/central_agent-stable-baselines-setting2.ipynb)
+        - [central_agent-stable-baselines-setting2.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-2/central_agent_stable_baselines_setting2.ipynb)
     - **Setting 3**
-        - [central_agent-stable-baselines-setting3.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-3/central_agent-stable-baselines-setting3.ipynb)
+        - [central_agent-stable-baselines-setting3.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-3/central_agent_stable_baselines_setting3.ipynb)
     - **Setting 4**
-        - [central_agent-stable-baselines-setting4.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-4/central_agent-stable-baselines-setting4.ipynb)
+        - [central_agent-stable-baselines-setting4.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-4/central_agent_stable_baselines_setting4.ipynb)
 
 ### MILP
 - [MILP_MAS.ipynb](MILP/MILP_MAS.ipynb)
