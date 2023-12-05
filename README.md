@@ -42,6 +42,12 @@ We opted for using Jupyter Notebook (.ipynb) files exclusively over traditional 
 
 ## Data Sources/Requirements 
 
+Due to data privacy issues, any files containing data from Official Airline Guide (OAG) were not uploaded. Hence, in order to run the files below, please liaise with the contributers to obtain the corresponding data folders/files. 
+
+Airport_distribution.ipynb, Movement_graphs.ipynb, MILP_MAS_real_data.ipynb, MILP_real_data.ipynb - ASEAN_2018D and ASEAN_2019D folders 
+Request_data.ipynb - ASEAN_2013D, ASEAN_2014D, ASEAN_2015D, ASEAN_2016D, ASEAN_2017D,ASEAN_2018D and ASEAN_2019D folders 
+
+
 ## Directory 
 
 ### Data Preprocessing & EDA
