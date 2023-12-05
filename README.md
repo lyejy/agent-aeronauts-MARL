@@ -79,9 +79,9 @@ We opted for using Jupyter Notebook (.ipynb) files exclusively over traditional 
         - [central_agent_stable_baselines_setting4.ipynb](MARL/Experiment-5-central-agent-stable-baselines/Setting-4/central_agent_stable_baselines_setting4.ipynb)
 
 ### MILP
-- [MILP_MAS.ipynb](MILP/MILP_MAS.ipynb)
-- [MILP_MAS_real_data.ipynb](MILP/MILP_MAS_real_data.ipynb)
-- [MILP.ipynb](MILP/MILP.ipynb)
-- [MILP_real_data.ipynb](MILP/MILP_real_data.ipynb)
+- [MILP_MAS.ipynb](MILP/MILP_MAS.ipynb) (Using MILP to solve a single-airport scheduling problem with generated scenarios)
+- [MILP_MAS_real_data.ipynb](MILP/MILP_MAS_real_data.ipynb) (Using MILP to solve a single-airport scheduling problem with actual data) 
+- [MILP.ipynb](MILP/MILP.ipynb) (Using MILP to solve a multi-airport scheduling problem with generated scenarios)
+- [MILP_real_data.ipynb](MILP/MILP_real_data.ipynb)(Using MILP to solve a multi-airport scheduling problem with actual data)
 
 
