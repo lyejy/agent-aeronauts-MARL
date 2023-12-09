@@ -32,8 +32,6 @@ The end goal is to develop a reinforcement learning model that is able to optima
 4. Experiments are conducted to assess the impact of key parameters on learning with systematic variation of number of agents, different temporal scopes i.e. the number of days considered, the reward structure and the observation framework. These experiments are conducted with the goal of identifying the optimal combination of key parameters and settings. 
 5. The model’s performance is then evaluated against the performance of benchmark algorithms such as Multi-Integer Linear Programming (MILP) and MDP methodologies. 
 
-## Research Findings 
-
 # Code  
 
 ## Usage Guidelines 
